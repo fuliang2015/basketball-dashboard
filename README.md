@@ -36,3 +36,8 @@ Use a local HTTP server (not file://), e.g. `python -m http.server 4173`. For au
 `tests/smoke.cjs` checks responsive layouts, verified game submission, local PDF attachment and photo, reload persistence, private backup contents, fresh-device media restore, merge/deduplication, invalid backup rejection, v1 data compatibility, goals/check-ins, trends, offline reload and deletion. Screenshots are written to ignored `test-results/`. The PDF test fixture verifies attachment handling only, not rendering or extraction of a real FIBA file.
 
 Browser verification performed with Playwright 1.62.1 and local Microsoft Edge at 390×844 and 1280×900. Native Safari/Android installation and the missing source score sheets require follow-up verification.
+
+## 2.1 reference-layout revision
+The homepage now follows the selected player dashboard composition: portrait/profile identity, illustrated goal and challenge cards, points line chart with a 5/10/all-games selector, latest-game stats, team illustration and four primary navigation tabs. Settings and check-in are available in the header. Name/team are entered locally and included in private backups. Generic generated illustrations are decorative, not player photographs. Bootstrap Icons 1.11.3 is bundled locally under its MIT license.
+
+The school crest is not included: its public site refused the asset request. The header currently uses the generic basketball brand. The supplied reference's fictional composure values and automatic-recording labels are replaced by recorded points and honest data-source labels. Native phone chrome is not recreated.
