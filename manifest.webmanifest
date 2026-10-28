@@ -1,0 +1,18 @@
+{
+  "name": "Basketball Journey",
+  "short_name": "Basketball",
+  "description": "Personal basketball development tracker",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef5fc",
+  "theme_color": "#dfeefc",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
