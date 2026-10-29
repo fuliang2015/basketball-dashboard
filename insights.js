@@ -15,7 +15,8 @@ function gameContribution(g){
   else if(positive('reb'))title='Rebounding contribution';
   const order=title==='Drawing fouls'?['fd','stl','pts','ast','reb']:title==='Creating for teammates'?['ast','stl','reb','fd','pts']:['pts','reb','stl','ast','fd'];
   const labels={pts:'points',reb:'rebounds',stl:'steals',ast:'assists',fd:'fouls drawn'};
-  const facts=order.filter(positive).slice(0,3).map(k=>g[k]+' '+labels[k]);
+  const singular={pts:'point',reb:'rebound',stl:'steal',ast:'assist',fd:'foul drawn'};
+  const facts=order.filter(positive).slice(0,3).map(k=>g[k]+' '+(g[k]===1?singular[k]:labels[k]));
   const totals=g.importReview?.teamTotal;
   const shares=[];
   for(const [key,total] of [['pts',g.ours],['reb',g.teamReb],['ast',totals?.ast],['stl',totals?.stl],['fd',totals?.fd]])if(positive(key)&&typeof total==='number'&&Number.isFinite(total)&&total>=g[key]&&total>0)shares.push(g[key]+' of '+total+' team '+labels[key]+' ('+Math.round(g[key]/total*100)+'%)');
@@ -24,5 +25,5 @@ function gameContribution(g){
   if(typeof g.pf==='number'&&Number.isFinite(g.pf)&&g.pf>0)watch.push(g.pf+' personal fouls');
   return {title,summary:facts.length?facts.join(' · '):'No positive contributions recorded in the available fields.',shares,watch,review:!!g.importReview};
 }
-function contributionHTML(g){const c=gameContribution(g);return '<div class="contribution"><div class="kicker">Recorded contribution</div><h3>'+esc(c.title)+'</h3><p>'+esc(c.summary)+'</p>'+(c.shares.length?'<p class="muted">'+c.shares.map(esc).join(' · ')+'</p>':'')+(c.watch.length?'<p class="contribution-watch"><strong>Next focus:</strong> '+esc(c.watch.join(' · '))+'. Review the possessions and situations behind these numbers.</p>':'')+'<small class="muted">'+(c.review?'Based on transcribed box-score values; source review is pending. ':'')+'Descriptive summary, not a player ranking or a measure of overall value.</small></div>';}
+function contributionHTML(g){const c=gameContribution(g);return '<div class="contribution"><div class="kicker">Recorded contribution</div><h3>'+esc(c.title)+'</h3><p>'+esc(c.summary)+'</p>'+(c.shares.length?'<p class="muted">'+c.shares.map(esc).join(' · ')+'</p>':'')+(c.watch.length?'<div class="contribution-watch"><strong>Review prompts:</strong> '+esc(c.watch.join(' · '))+'<details class="practice-tips"><summary>What do these mean? Practice tips</summary><p>These are recorded events in this game, not targets for the next game. The box score does not identify the cause.</p><ul>'+(g.to>0?'<li><strong>Ball security:</strong> Rewatch each turnover: was it a pass, dribble, footwork or communication issue? In practice, try a short 2-on-1 passing drill: scan before receiving, pivot to create a passing lane and use a clear pass.</li>':'')+(g.pf>0?'<li><strong>Foul discipline:</strong> Rewatch the foul situations: was the player late, reaching, making contact or contesting a shot? Try a controlled closeout drill: arrive balanced, move the feet and keep hands disciplined. Ask the coach which situations to focus on.</li>':'')+'</ul></details></div>':'')+'</div>';}
 if(typeof module!=='undefined')module.exports={gameTime,gameContribution};
