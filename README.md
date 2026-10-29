@@ -73,3 +73,9 @@ Games prioritises a compact game list. JSON import is inside a collapsed panel; 
 Progress → Player report offers All/Recent 3/Recent 5 scopes with consistent overview, factual strengths/priorities, shooting makes/attempts, points/turnovers chart and the shared current challenge. Missing shooting data is explicitly unavailable. The data-update timestamp tracks changes in saved games, not page opens or scope changes. Explicit snapshots retain their report data/challenge; changed current data is indicated. Snapshots and reflections are included in private backups.
 
 No database or account is required for local mobile use. Transfer a private JSON backup to the phone, import through Settings → Restore a backup → Import JSON, then open online once before using offline. On a fresh device the backup restores profile/photo/records. Existing profile/data are kept when merging. Feedback is device-local and can be transferred manually by exporting/importing backups. There is no automatic cross-device feedback sync. Do not publish private backups, real rosters or photos to this repository.
+
+
+### 2.5.1 — First impression before statistics
+New games prompt for Great / Good / Mixed / Tough before stats are visible, with no default answer and an optional note. Save or Skip opens that game. Only the latest game in a batch is prompted, once. Existing check-ins are kept. Editing statistics does not prompt again. Game details allow adding or editing a feeling. Each feeling retains the challenge at first save. Feelings are subjective, not performance ratings.
+
+Feelings and prompt history are local and included in private backups; merge preserves existing feelings. No cloud sync. Close all site app/browser windows and reopen to update; never clear site data. `npm test` covers persistence, offline use, storage failure, backup restore and existing regressions. Set QA_DIR for new-flow screenshot output.
