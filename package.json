@@ -1,7 +1,11 @@
 {
   "name": "basketball-journey",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "private": true,
-  "scripts": { "test": "node tests/smoke.cjs" },
-  "devDependencies": { "playwright": "1.62.1" }
+  "scripts": {
+    "test": "node tests/converted.cjs && node tests/smoke.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
 }
