@@ -1,6 +1,6 @@
 {
   "name": "basketball-journey",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "private": true,
   "scripts": {
     "test": "node tests/insights.cjs && node tests/converted.cjs && node tests/smoke.cjs"
