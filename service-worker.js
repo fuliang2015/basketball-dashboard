@@ -1,4 +1,4 @@
-const CACHE='basketball-journey-v2.5.1';
+const CACHE='basketball-journey-v2.5.2';
 const ASSETS=['./','./index.html','./app.js','./upgrade.js','./upgrade.css','./court.svg','./mountain.png','./portrait.png','./tactics.png','./team.png','./icons.svg','./reference-layout.js','./game-import.js','./insights.js','./game-detail.js','./development.js','./feelings.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 // Wait for old tabs to close before activation to avoid mixed app versions.

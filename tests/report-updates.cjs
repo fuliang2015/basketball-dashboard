@@ -1,0 +1,10 @@
+const assert=require('assert');
+const {developmentReport}=require('../development.js');
+const game=(id,date,to,pf,fgMade,fgAttempts)=>({id,date,minutes:10,pts:fgMade*2,stl:2,ast:1,reb:1,fd:2,to,pf,importReview:{playerRow:{fg_made:fgMade,fg_attempted:fgAttempts,three_made:0,three_attempted:1,ft_made:0,ft_attempted:0}}});
+const first=game('a','2026-01-01',5,4,3,6),next=game('b','2026-01-02',2,1,1,6);
+const before=developmentReport([first]),after=developmentReport([first,next]);
+assert.notEqual(before.opportunity,after.opportunity);assert(after.opportunity.includes('1/6'));assert(after.practice.includes(next.date));assert(after.changes.some(x=>x.includes('5 → 2')));assert(after.comparison.includes('10:00 → 10:00'));
+const snapshot=JSON.stringify([first,next]);developmentReport([next,first]);assert.equal(snapshot,JSON.stringify([first,next]));
+const missing=developmentReport([{...next,to:null,pf:null,minutes:null,importReview:undefined}]);assert(!missing.opportunity.includes('0 turnovers'));assert.equal(missing.changes.length,0);
+const later=game('c','2026-01-03',0,0,4,6);const scoped=developmentReport([first,next,later,game('d','2026-01-04',1,1,3,6)],'3');assert.equal(scoped.count,3);assert(!scoped.comparison.includes('2026-01-01'));assert(!scoped.opportunity.includes('1/6'));
+assert.equal(developmentReport([]).changes.length,0);console.log('PASS report updates: new game changes priority, dated practice, count/rate comparison, scope, missing data, no mutation.');
