@@ -82,3 +82,13 @@ Feelings and prompt history are local and included in private backups; merge pre
 
 ### 2.5.2 — Reviews respond to new games
 Home and report now describe the latest selected game, with a dated practice question. Reports compare latest and previous counts, playing time and per-10-minute rates where known. Comparisons do not assert lasting improvement or explain causes. The shooting-review trigger (at least five attempts and under 30% FG in the latest game) is a transparent review heuristic, not a skill rating; otherwise review available turnovers/fouls or request context. Missing fields are not zeros. User challenges and old snapshots remain unchanged.
+
+## Account connection: 2.6.0
+- Settings now provides email/password sign-in, server-verified parent/player membership and sign-out.
+- Uses the vendored Supabase JS SDK 2.118.0; its license is in vendor/supabase-LICENSE.txt.
+- Sessions use a separate sessionStorage key, survive a tab reload, and are not included in local backups. Closing the tab/app may require signing in again.
+- No self-registration UI. Provision Auth accounts privately, then assign family memberships server-side. Never assign a role from browser input or user metadata.
+- **Not connected yet:** game publication/sync, cloud reflections and AI reports. Dashboard records remain device-local even while signed in.
+- Auth UI tests mock network responses and cover both roles, denied sign-in, no membership, reload and sign-out. Real-account acceptance remains pending account provisioning.
+- Browser plugin not available for automated local tests; existing Playwright / Edge workflow used at 390x844 and 1280x900.
+
