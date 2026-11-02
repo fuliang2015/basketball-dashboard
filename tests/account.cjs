@@ -14,7 +14,8 @@ let data,status=200;
 if(url.pathname==='/auth/v1/token'){if(fail){status=400;data={error:'invalid_grant',error_description:'Invalid login credentials'}}else data={access_token:'synthetic-token',refresh_token:'synthetic-refresh',expires_in:3600,token_type:'bearer',user:user()}}
 else if(url.pathname==='/auth/v1/user')data=user();
 else if(url.pathname==='/auth/v1/logout')data={};
-else if(url.pathname==='/rest/v1/bj_members')data=role?{role}:null;
+else if(url.pathname==='/rest/v1/bj_members')data=role?{role,family_id:"family-test",user_id:uid}:null;
+else if(url.pathname==='/rest/v1/bj_games'||url.pathname==='/rest/v1/bj_reports')data=[];
 else throw Error('Unexpected cloud request '+url.pathname);
 await route.fulfill({status,contentType:'application/json',body:JSON.stringify(data)});
 });
@@ -43,5 +44,3 @@ assert.deepEqual(errors,[]);
 assert(calls.every(c=>!c.body||!c.body.includes('games')));
 console.log('PASS account: failed login, password cleared, parent/player role verification, reload session, sign-out, unprovisioned user, no local data upload, local preservation, mobile/desktop.');
 }finally{await browser.close();server.close()}})().catch(e=>{console.error(e);server.close();process.exit(1)});
-
-

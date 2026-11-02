@@ -1,11 +1,11 @@
 'use strict';
-// Account access only. This module never reads or uploads local player data.
+// Account verification enables read-only published cloud views. Local records are preserved.
 (() => {
   const panel = document.createElement('div');
   panel.className = 'card';
   panel.id = 'accountPanel';
   panel.innerHTML = `<h2>Private account</h2>
-    <p class="muted">Sign in to check your family access. Game sync is not connected yet; the dashboard still shows this device's records.</p>
+    <p class="muted">Sign in to see your published games, team box scores and saved AI-assisted review. Local photos and notes stay on this device.</p>
     <form id="accountForm">
       <label for="accountEmail">Email</label>
       <input class="field" id="accountEmail" type="email" autocomplete="username" required maxlength="254">
@@ -36,9 +36,11 @@
     const current = ++generation;
     busy(true);
     if (!session) {
+      window.familyCloud?.reset();
       signedOut('Not signed in. Your local records are unchanged.');
       busy(false); return;
     }
+    window.familyCloud?.begin();
     el('accountForm').hidden = true;
     el('accountIdentity').hidden = false;
     el('accountWho').textContent = '';
@@ -50,16 +52,19 @@
       if (userError || !verified.user) throw Error('verification');
       el('accountWho').textContent = verified.user.email || 'Signed-in account';
       const {data: member, error} = await client.from('bj_members')
-        .select('role').eq('user_id', verified.user.id).maybeSingle();
+        .select('role,family_id,user_id').eq('user_id', verified.user.id).maybeSingle();
       if (current !== generation) return;
       if (error) throw Error('membership');
       if (!member || !['parent','player'].includes(member.role)) {
         el('accountStatus').textContent = 'Signed in, but family access has not been set up. Ask your administrator.';
+        window.familyCloud?.fail('Your account has not been linked to a family yet.');
       } else {
         el('accountRole').textContent = member.role === 'parent' ? 'Parent / administrator' : 'Player';
-        el('accountStatus').textContent = 'Family access verified. Game sync is not connected yet.';
+        el('accountStatus').textContent = 'Family access verified. Open Home to see published records.';
+        await window.familyCloud?.load(client,verified.user,member);
       }
     } catch {
+      if (current === generation) window.familyCloud?.fail('Account verification failed. Reconnect or sign in again.');
       if (current === generation) el('accountStatus').textContent =
         'Could not verify access. Check your connection, or sign out and try again.';
     } finally { if (current === generation) busy(false); }
@@ -109,4 +114,3 @@
     busy(false);
   };
 })();
-

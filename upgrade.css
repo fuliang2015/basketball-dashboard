@@ -18,3 +18,5 @@
 @media(max-width:600px){#feelingDialog{margin:auto auto 0;width:100%;max-width:100%;border-radius:28px 28px 0 0;padding-bottom:max(24px,env(safe-area-inset-bottom))}}
 
 #feelingDialog{text-align:left}#feelingTitle:focus{outline:none}
+.cloud-game{display:flex;width:100%;text-align:left;flex-direction:column;gap:10px;color:inherit;font:inherit;cursor:pointer}.cloud-game strong{font-size:18px}.cloud-game .link{padding:0}#cloudDetail h2{margin-top:24px}#cloudReport h3{margin-top:20px}#cloudHome .hero h1{margin-top:12px}#cloudHome .row{flex-wrap:wrap}
+.cloud-identity{display:block;padding:22px 4px 12px;background:none;min-height:0}.cloud-identity h1{margin-top:12px;overflow-wrap:anywhere}.cloud-identity .pill{width:auto}.cloud-identity .muted{letter-spacing:normal;margin-bottom:8px}

@@ -1,13 +1,11 @@
 {
   "name": "basketball-journey",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "private": true,
   "scripts": {
-    "test": "node tests/insights.cjs && node tests/report-updates.cjs && node tests/converted.cjs && node tests/smoke.cjs && node tests/feelings.cjs && node tests/account.cjs"
+    "test": "node tests/insights.cjs && node tests/report-updates.cjs && node tests/converted.cjs && node tests/smoke.cjs && node tests/feelings.cjs && node tests/account.cjs && node tests/cloud.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
   }
 }
-
-
